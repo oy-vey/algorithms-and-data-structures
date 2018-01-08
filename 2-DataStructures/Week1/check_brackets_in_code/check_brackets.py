@@ -19,14 +19,27 @@ class Bracket:
 if __name__ == "__main__":
     text = sys.stdin.read()
 
+    head = -1
     opening_brackets_stack = []
-    for i, next in enumerate(text):
-        if next == '(' or next == '[' or next == '{':
-            # Process opening bracket, write your code here
+    result = True
+    for i, symb in enumerate(text):
+        if symb == '(' or symb == '[' or symb == '{':
+            opening_brackets_stack.append(symb)
+            b = Bracket(symb, i)
+            head += 1
             pass
 
-        if next == ')' or next == ']' or next == '}':
-            # Process closing bracket, write your code here
+        if symb == ')' or symb == ']' or symb == '}':
+            if not b.Match(symb):
+                print(i)
+                result = False
+                break
+
+            opening_brackets_stack.pop()
+            head -= 1
             pass
 
-    # Printing answer, write your code here
+    if head == -1:
+        print('Success')
+    elif result:
+        print(b.position + 1)
