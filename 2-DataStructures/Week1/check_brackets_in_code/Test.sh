@@ -7,13 +7,20 @@ do
 
   if [[ $f == *"a"* ]]
   then
-    echo "Right answer:"
-    cat $f
+    Right=$( cat $f)
+    #echo $Right
+    if [[ $Right == $Sol ]]
+    then
+      echo "Passed!"
+    else
+      echo "Correct answer: $Right, Your answer: $Sol"
+      echo
+    fi
   else
     echo "_______________________"
     echo "Processing $f file..."
-    echo "Result:"
-    cat $f | python check_brackets.py
+    Sol=$( cat $f | python check_brackets.py)
+    #echo $Sol
   fi
 
 done

@@ -45,8 +45,8 @@ if __name__ == "__main__":
             head -= 1
             pass
 
-    if head == -1:
+    if head == -1 and result:
         print('Success')
     elif result:
-        b = opening_brackets_stack[head] 
+        b = opening_brackets_stack[head]
         print(b.position + 1)
