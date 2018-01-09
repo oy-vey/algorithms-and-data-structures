@@ -24,9 +24,9 @@ if __name__ == "__main__":
     result = True
     for i, symb in enumerate(text):
         if symb == '(' or symb == '[' or symb == '{':
-            opening_brackets_stack.append(symb)
+            b = Bracket(symb, i)
+            opening_brackets_stack.append(b)
             head += 1
-            b = Bracket(opening_brackets_stack[head], i)
             pass
 
         if symb == ')' or symb == ']' or symb == '}':
@@ -35,7 +35,7 @@ if __name__ == "__main__":
                 print(i + 1)
                 break
             else:
-                b = Bracket(opening_brackets_stack[head], i)
+                b = opening_brackets_stack[head]
             if not b.Match(symb):
                 print(i + 1)
                 result = False
@@ -48,4 +48,5 @@ if __name__ == "__main__":
     if head == -1:
         print('Success')
     elif result:
+        b = opening_brackets_stack[head] 
         print(b.position + 1)
