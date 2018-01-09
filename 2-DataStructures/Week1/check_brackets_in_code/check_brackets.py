@@ -25,13 +25,19 @@ if __name__ == "__main__":
     for i, symb in enumerate(text):
         if symb == '(' or symb == '[' or symb == '{':
             opening_brackets_stack.append(symb)
-            b = Bracket(symb, i)
             head += 1
+            b = Bracket(opening_brackets_stack[head], i)
             pass
 
         if symb == ')' or symb == ']' or symb == '}':
+            if head == -1:
+                result = False
+                print(i + 1)
+                break
+            else:
+                b = Bracket(opening_brackets_stack[head], i)
             if not b.Match(symb):
-                print(i)
+                print(i + 1)
                 result = False
                 break
 
