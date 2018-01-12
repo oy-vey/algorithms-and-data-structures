@@ -18,9 +18,11 @@ do
     fi
   else
     echo "_______________________"
+    start=$SECONDS
     echo "Processing $f file..."
     Sol=$( cat $f | python tree-height.py)
-    #echo $Sol
+    duration=$(( SECONDS - start ))
+    echo "Time:" $duration
   fi
 
 done
