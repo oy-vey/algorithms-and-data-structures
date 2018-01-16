@@ -1,4 +1,5 @@
 # python3
+import sys
 
 class Request:
     def __init__(self, arrival_time, process_time):
@@ -16,8 +17,25 @@ class Buffer:
         self.finish_time_ = []
 
     def Process(self, request):
-        # write your code here
-        return Response(False, -1)
+        if not self.finish_time_:
+            self.finish_time_.append(request.arrival_time+request.process_time)
+            self.size -= 1
+            return Response(False, request.arrival_time)
+        elif request.arrival_time >= self.finish_time_[-1]:
+            self.size += len(self.finish_time_)
+            self.finish_time_ = []
+            self.finish_time_.append(request.arrival_time+request.process_time)
+            self.size -= 1
+            return Response(False,request.arrival_time)
+        else:
+            while self.finish_time_[0] <= request.arrival_time:
+                self.finish_time_.pop(0)
+                self.size += 1
+            if self.size > 0:
+                self.finish_time_.append(self.finish_time_[-1] + request.process_time)
+                self.size -= 1
+                return Response(False,self.finish_time_[-2])
+        return Response(True, -1)
 
 def ReadRequests(count):
     requests = []
@@ -37,8 +55,9 @@ def PrintResponses(responses):
         print(response.start_time if not response.dropped else -1)
 
 if __name__ == "__main__":
-    size, count = map(int, input().strip().split())
+    size, count = map(int, sys.stdin.readline().split())
     requests = ReadRequests(count)
+
 
     buffer = Buffer(size)
     responses = ProcessRequests(requests, buffer)
