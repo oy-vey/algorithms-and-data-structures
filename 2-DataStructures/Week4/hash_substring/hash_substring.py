@@ -29,7 +29,7 @@ def PrecomputeHashes(T, lenP, p, x):
 def get_occurrences(pattern, text):
     lenP = len(pattern)
     lenT = len(text)
-    p = 10 ** 2
+    p = 10 ** 9
     x = random.randint(0, p - 1)
     result = []
     pHash = PolyHash(pattern, p, x)
