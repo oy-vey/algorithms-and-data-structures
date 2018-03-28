@@ -11,35 +11,35 @@ def print_occurrences(output):
 def PolyHash(S, p, x):
     hash = 0
     for c in reversed(S):
-        hash += (hash * x + ord(c)) % p
+        hash = (hash * x + ord(c)) % p
     return hash
 
 def PrecomputeHashes(T, lenP, p, x):
     lenT = len(T)
     H = [None] * (lenT - lenP + 1)
-    S = T[lenT - lenP:lenT - 1]
+    S = T[lenT - lenP:lenT]
     H[lenT-lenP] = PolyHash(S, p, x)
     y = 1
-    for i in range(1, lenP + 1):
+    for i in range(0, lenP):
         y = (y * x) % p
     for i in range(lenT - lenP - 1, -1, -1):
-        H[i] = (x * H[i + 1] + ord(T[i]) - y * ord(T[i + lenP]))
+        H[i] = (x * H[i + 1] + ord(T[i]) - y * ord(T[i + lenP])) % p
     return H
 
 def get_occurrences(pattern, text):
     lenP = len(pattern)
     lenT = len(text)
-    p = 10 ** 8
+    p = 10 ** 2
     x = random.randint(0, p - 1)
     result = []
     pHash = PolyHash(pattern, p, x)
     H = PrecomputeHashes(text, lenP, p, x)
-    for i in range(0, lenT - lenP + 1):
+    for i in range(0, len(H)):
         if pHash != H[i]:
             continue
-        if text[i:i+lenP-1] == pattern:
+        if text[i:i+lenP] == pattern:
             result.append(i)
-        return result
+    return result
 
 if __name__ == '__main__':
     print_occurrences(get_occurrences(*read_input()))
