@@ -21,7 +21,7 @@ class QueryProcessor:
     def _hash_func(self, s):
         ans = 0
         for c in reversed(s):
-            ans += (ans * self._multiplier + ord(c)) % self._prime
+            ans = (ans * self._multiplier + ord(c)) % self._prime
         return ans % self.bucket_count
 
     def write_search_result(self, was_found):
