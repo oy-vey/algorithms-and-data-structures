@@ -21,21 +21,21 @@ def BellmanFord(adj, S, cost):
                 if dist[v] > dist[u] + cost[u][i]:
                     dist[v] = dist[u] + cost[u][i]
                     prev[v] = u
-    x = v
-    for i in range(0, len(adj)):
-        x = prev[x]
-        if x is None:
-            return 0
-    return 1
+    for u, out in enumerate(adj):
+        for i, v in enumerate(out):
+            if dist[v] > dist[u] + cost[u][i]:
+                return 1
+
+    return 0
 
 def negative_cycle(adj, cost):
     return BellmanFord(adj, 0, cost)
 
 
 if __name__ == '__main__':
-    # input = sys.stdin.read()
-    with open('test', 'r') as f:
-        input = f.read()
+    input = sys.stdin.read()
+    # with open('test', 'r') as f:
+    #     input = f.read()
     data = list(map(int, input.split()))
     n, m = data[0:2]
     data = data[2:]

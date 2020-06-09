@@ -21,9 +21,9 @@ def distance(adj, s, t):
     return dist[t]
 
 if __name__ == '__main__':
-    #input = sys.stdin.read()
-    with open('test','r') as f:
-        input = f.read()
+    input = sys.stdin.read()
+    # with open('test','r') as f:
+    #     input = f.read()
     data = list(map(int, input.split()))
     n, m = data[0:2]
     data = data[2:]

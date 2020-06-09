@@ -39,9 +39,9 @@ def minimum_distance(x, y):
 
 
 if __name__ == '__main__':
-    # input = sys.stdin.read()
-    with open('test', 'r') as f:
-        input = f.read()
+    input = sys.stdin.read()
+    # with open('test', 'r') as f:
+    #     input = f.read()
     data = list(map(int, input.split()))
     n = data[0]
     x = data[1::2]
